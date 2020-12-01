@@ -10,7 +10,7 @@ main = hspec $ do
     withInput $ do
       input <- readFile "test/AOC1.txt"
       AOC1_1.solve input `shouldBe` 910539
-  describe "1_1" $ do
+  describe "1_2" $ do
     withInput $ do
       input <- readFile "test/AOC1.txt"
-      AOC1_2.solve input `shouldBe` 0
+      AOC1_2.solve input `shouldBe` 116724144
