@@ -12,8 +12,5 @@ valid password = validPassword (read low) (read high) (head c) s
     (_, _, _, [low, high, c, s]) = 
        password =~ "([0-9]+)-([0-9]+) (.): (.+)" :: (String, String, String, [String])
 
-xor :: Bool -> Bool -> Bool
-x `xor` y = (x || y) && not (x && y)
-
 validPassword :: Int -> Int -> Char -> String -> Bool
-validPassword a b char str = (str !! (a - 1) == char) `xor` (str !! (b - 1) == char)
+validPassword a b char str = (str !! (a - 1) == char) /= (str !! (b - 1) == char)
