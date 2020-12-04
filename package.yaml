@@ -7,10 +7,10 @@ dependencies:
 - regex-tdfa
 - containers
 - matrix
+- split
 #- text
 #- mtl
 #- stm
-#- split
 
 
 library:
