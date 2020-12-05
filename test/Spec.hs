@@ -7,8 +7,11 @@ import qualified AOC3_1
 import qualified AOC3_2
 import qualified AOC4_1
 import qualified AOC4_2
+import qualified AOC5_1
+import qualified AOC5_2
 
 import qualified Spec4_2
+import qualified Spec5_1
 
 goldStar = specify "GOLD STAR *"
 
@@ -47,3 +50,12 @@ main = hspec $ do
       input <- readFile "test/AOC4.txt"
       AOC4_2.solve input `shouldBe` 186
     Spec4_2.test
+  describe "5_1" $ do
+    goldStar $ do
+      input <- readFile "test/AOC5.txt"
+      AOC5_1.solve input `shouldBe` 951
+    Spec5_1.test
+  describe "5_2" $ do
+    goldStar $ do
+      input <- readFile "test/AOC5.txt"
+      AOC5_2.solve input `shouldBe` 653
