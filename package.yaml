@@ -5,6 +5,7 @@ dependencies:
 - base >= 4.7 && < 5
 - base >= 4.7 && < 5
 - regex-tdfa
+- regex-pcre
 - containers
 - matrix
 - split
