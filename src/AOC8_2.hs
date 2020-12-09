@@ -10,18 +10,20 @@ import Data.Maybe (fromJust)
 type Accumulator = Int
 type ProgramCounter = Int
 type ProgramState = (Accumulator, ProgramCounter)
-type Instruction = (String, Int)
+type Instruction = (Command, Int)
 type Program = Seq Instruction
 
+data Command = Jmp | Nop | Acc deriving (Eq, Show)
+
 solve :: String -> Int
-solve input = runAll $ replacements "jmp" "nop" program ++ replacements "nop" "jmp" program
+solve input = runAll $ replacements Jmp Nop program ++ replacements Nop Jmp program
   where 
     program = fromList . map parse . lines $ input
 
-indices ::  String -> Program -> [Int]
+indices ::  Command -> Program -> [Int]
 indices instr = map fst . filter (\(ix, (i, _)) -> i == instr) . zip [0..] . toList
 
-replacements :: String -> String -> Program -> [Program]
+replacements :: Command -> Command -> Program -> [Program]
 replacements origInstr replaceInstr program = 
   map (\ix -> adjust (\(instr, n) -> (replaceInstr, n)) ix program) . indices origInstr $ program
 
@@ -40,12 +42,19 @@ run' visited state@(acc, pc) program
 interpret :: Program -> ProgramState -> ProgramState
 interpret program (acc, pc) =
   case program `index` pc of 
-    ("nop", _) -> (acc, pc + 1)
-    ("acc", n) -> (acc + n, pc + 1)
-    ("jmp", n) -> (acc, pc + n)
+    (Nop, _) -> (acc, pc + 1)
+    (Acc, n) -> (acc + n, pc + 1)
+    (Jmp, n) -> (acc, pc + n)
 
 parse :: String -> Instruction
-parse = (\[a, b] -> (a, readN b)) . splitOn " "
+parse = (\[a, b] -> (toCommand a, readN b)) . splitOn " "
+
+toCommand :: String -> Command
+toCommand cmd =
+  case cmd of
+    "nop" -> Nop
+    "acc" -> Acc
+    "jmp" -> Jmp
 
 readN :: String -> Int
 readN ('+':xs) = read xs
