@@ -21,11 +21,11 @@ solve input = runAll $ replacements Jmp Nop program ++ replacements Nop Jmp prog
     program = fromList . map parse . lines $ input
 
 indices ::  Command -> Program -> [Int]
-indices instr = map fst . filter (\(ix, (i, _)) -> i == instr) . zip [0..] . toList
+indices cmd = map fst . filter (\(_, (c, _)) -> c == cmd) . zip [0..] . toList
 
 replacements :: Command -> Command -> Program -> [Program]
-replacements origInstr replaceInstr program = 
-  map (\ix -> adjust (\(instr, n) -> (replaceInstr, n)) ix program) . indices origInstr $ program
+replacements origCmd replaceCmd program = 
+  map (\ix -> adjust (\(cmd, n) -> (replaceCmd, n)) ix program) . indices origCmd $ program
 
 runAll :: [Program] -> Int
 runAll = fromJust . msum . map run
