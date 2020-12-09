@@ -14,6 +14,7 @@ import qualified AOC6_2
 import qualified AOC7_1
 import qualified AOC7_2
 import qualified AOC8_1
+import qualified AOC8_2
 
 import qualified Spec4_2
 import qualified Spec5_1
@@ -88,5 +89,9 @@ main = hspec $ do
   describe "8_1" $ do
     goldStar $ do
       input <- readFile "test/AOC8.txt"
-      AOC8_1.solve input `shouldBe` 0
+      AOC8_1.solve input `shouldBe` 1134
     Spec8_1.test
+  describe "8_2" $ do
+    goldStar $ do
+      input <- readFile "test/AOC8.txt"
+      AOC8_2.solve input `shouldBe` 1205
