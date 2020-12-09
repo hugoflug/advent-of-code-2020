@@ -1,17 +1,22 @@
 module AOC9_1 where
 
-import Data.Sequence (Seq)
+import qualified Data.Sequence as S
+import Data.Sequence (Seq(..), take, drop, (|>))
 
 solve :: String -> Int
-solve = findNonSum 25 . map read . lines
+solve = findNonSum 25 . S.fromList . map read . lines
 
-findNonSum :: Int -> [Int] -> Int
-findNonSum n list = findNonSum' (take n list) (drop n list)
+findNonSum :: Int -> Seq Int -> Int
+findNonSum n seq = findNonSum' (S.take n seq) (S.drop n seq)
 
-findNonSum' :: [Int] -> [Int] -> Int
-findNonSum' pre (x:xs) =
-  if not $ hasSum x pre then x
-  else findNonSum' (tail pre ++ [x]) xs
+findNonSum' :: Seq Int -> Seq Int -> Int
+findNonSum' pre (x :<| xs) =
+  if hasSum x pre then findNonSum' (S.drop 1 pre |> x) xs
+  else x
 
-hasSum :: Int -> [Int] -> Bool
-hasSum n list = not . null $ [x + y | x <- list, y <- list, x + y == n]
+hasSum :: Int -> Seq Int -> Bool
+hasSum n seq = 
+  any (== n) $ do
+    x <- seq
+    y <- seq
+    return $ x + y
