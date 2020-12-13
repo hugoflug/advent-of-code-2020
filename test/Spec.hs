@@ -16,12 +16,18 @@ import qualified AOC7_2
 import qualified AOC8_1
 import qualified AOC8_2
 import qualified AOC9_1
+import qualified AOC9_2
+import qualified AOC10_1
+import qualified AOC10_2
 
 import qualified Spec4_2
 import qualified Spec5_1
 import qualified Spec7_1
 import qualified Spec7_2
 import qualified Spec8_1
+import qualified Spec9_2
+import qualified Spec10_1
+import qualified Spec10_2
 
 goldStar = specify "GOLD STAR *"
 
@@ -100,3 +106,18 @@ main = hspec $ do
     goldStar $ do
       input <- readFile "test/AOC9.txt"
       AOC9_1.solve input `shouldBe` 375054920
+  describe "9_2" $ do
+    goldStar $ do
+      input <- readFile "test/AOC9.txt"
+      AOC9_2.solve input `shouldBe` 54142584
+    Spec9_2.test
+  describe "10_1" $ do
+    goldStar $ do
+      input <- readFile "test/AOC10.txt"
+      AOC10_1.solve input `shouldBe` 2046
+    Spec10_1.test
+  describe "10_2" $ do
+    goldStar $ do
+      input <- readFile "test/AOC10.txt"
+      AOC10_2.solve input `shouldBe` 0
+    Spec10_2.test

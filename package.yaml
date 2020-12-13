@@ -9,6 +9,7 @@ dependencies:
 - containers
 - matrix
 - split
+- memoize
 #- text
 #- mtl
 #- stm
